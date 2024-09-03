@@ -1,0 +1,15 @@
+.login-button-area{
+    align-items: center;
+}
+
+.login-form{
+    width: 100%;
+      
+  }
+  .login-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 550px;
+  }

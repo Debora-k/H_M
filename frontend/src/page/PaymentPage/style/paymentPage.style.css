@@ -1,0 +1,50 @@
+.payment-title{
+    margin-top:30px;
+    margin-bottom:20px;
+}
+.rccs{
+    margin:0 !important;
+}
+
+
+.form-area input{
+    margin-bottom: 10px;
+}
+.pay-button{
+    margin-top: 30px;
+}
+
+.confirmation-page{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding-top:20px;
+    padding-bottom: 40px;
+    width: 90%;
+}
+
+.check-image{
+    padding:20px;
+}
+.mobile-receipt-area{
+    display:none;
+}
+
+@media screen and (max-width: 63rem) {
+    .form-area{
+        margin-top: 20px;
+    }
+
+    .receipt-area{
+        display: none;
+    }
+    .mobile-receipt-area{
+        display:block;
+    }
+
+    /* .pay-button{
+        position: absolute;
+        bottom: 0;
+    } */
+}

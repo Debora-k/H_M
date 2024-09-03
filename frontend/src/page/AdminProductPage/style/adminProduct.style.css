@@ -1,0 +1,50 @@
+.card-area{
+    margin-top:20px;
+}
+.admin-product-card{
+    border:1px solid red;
+
+}
+.tag{
+    margin-left:10px
+}
+
+.display-flex{
+    display:flex;
+    align-items: center;
+}
+.locate-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.stock{
+    margin-right: 10px;
+}
+
+
+.mt-2{
+    margin-top: 20px;
+}
+
+.form-container{
+    padding:20px
+}
+.mr-1{
+    margin-right: 10px;
+}
+
+.upload-image{
+    max-width: 458px;
+    width:100%
+}
+.display-center{
+    display: flex;
+    justify-content: center;
+}
+.error-message{
+    color: red;
+    font-size: 10pt;
+    padding-right: 10px;
+}

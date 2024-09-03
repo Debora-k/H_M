@@ -1,0 +1,44 @@
+.product-card-cart{
+    margin-bottom: 10px;
+}
+.qty-dropdown{
+    max-width:400px;
+}
+.trash-button{
+    background-color: white;
+    border: 1px solid gray;
+}
+.product-card-cart{
+    background-color: ghostwhite;
+    padding:10px;
+}
+.receipt-container{
+    border: 1px solid gray;
+    padding: 32px 24px;
+}
+.receipt-list{
+    list-style-type: none;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+
+.receipt-list li{
+    padding-bottom: 10px;
+}
+
+.receipt-title{
+    margin-bottom: 20px;
+}
+
+.payment-button{
+   width: 100%;
+   padding: 16px;
+   margin-bottom: 20px;
+}
+.text-align-center{
+    text-align: center;
+}
+.empty-bag{
+    background-color: white;
+    padding: 20px;
+}
