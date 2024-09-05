@@ -13,23 +13,32 @@ export const getProductList = createAsyncThunk(
       console.log(response.data);
       return response.data;
     } catch(error) {
-      rejectWithValue(error.error);
+      return rejectWithValue(error.error);
     }
   }
 );
 
 export const getProductDetail = createAsyncThunk(
   "products/getProductDetail",
-  async (id, { rejectWithValue }) => {}
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/item/${id}`);
+      if(response.status !== 200) throw new Error(response.error);
+      return response.data;
+    } catch(error) {
+      return rejectWithValue(error.error);
+    }
+  }
 );
 
 export const createProduct = createAsyncThunk(
   "products/createProduct",
-  async (formData, { dispatch, rejectWithValue }) => {
+  async (formData, page, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.post("/item", formData);
       if(response.status!==200) throw new Error(response.error);
       dispatch(showToastMessage({message:"Success to create an item!", status:"success"}));
+      dispatch(getProductList({page}));
       return response.data.data;
     }catch(error) {
       return rejectWithValue(error.error);
@@ -40,13 +49,16 @@ export const createProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
-  async (id, { dispatch, rejectWithValue }) => {
-    // try {
-    //   const response = await api.delete("/item", id);
-    //   dispatch(deleteProduct({status:"success",}))
-    // } catch (error) {
-    //   return rejectWithValue(error.error);
-    // }
+  async (id, page, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await api.delete(`/item/${id}`);
+      if(response.status!==200) throw new Error(response.error);
+      dispatch(showToastMessage({message:"Deleted the item successfully.", status:"success"}));
+      dispatch(getProductList({page}));
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.error);
+    }
   }
 );
 
@@ -126,6 +138,33 @@ const productSlice = createSlice({
       state.success=true;
     })
     .addCase(editProduct.rejected,(state,action) => {
+      state.loading=false;
+      state.error=action.payload;
+      state.success=false;
+    })
+    .addCase(deleteProduct.pending, (state,action) => {
+      state.loading=true;
+    })
+    .addCase(deleteProduct.fulfilled, (state,action) => {
+      state.loading=false;
+      state.error="";
+      state.success=true;
+    })
+    .addCase(deleteProduct.rejected, (state,action) => {
+      state.loading=false;
+      state.error=action.payload;
+      state.success=false;
+    })
+    .addCase(getProductDetail.pending, (state,action) => {
+      state.loading=true;
+    })
+    .addCase(getProductDetail.fulfilled, (state,action) => {
+      state.loading=false;
+      state.error="";
+      state.success=true;
+      state.selectedProduct=action.payload.data;
+    })
+    .addCase(getProductDetail.rejected, (state,action) => {
       state.loading=false;
       state.error=action.payload;
       state.success=false;

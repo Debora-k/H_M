@@ -56,8 +56,7 @@ const AdminProductPage = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    // delete an item
-    // setMode("delete");
+    dispatch(setSelectedProduct.deleteProduct(id));   
   };
 
   const openEditForm = (product) => {

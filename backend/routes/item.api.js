@@ -12,11 +12,21 @@ router.post("/",
 //bring items 
 router.get("/", itemController.getItems);
 
+//item details
+router.get("/:id",
+    itemController.getItemById);
+
 //edit an item
 router.put("/:id",  
     authController.authenticate,
     authController.checkAdminPermission,
     itemController.updateItem);
+
+//delete an item
+router.delete("/:id",
+    authController.authenticate,
+    authController.checkAdminPermission,
+    itemController.deleteItem);
 
     
 module.exports = router;

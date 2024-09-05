@@ -38,7 +38,9 @@ itemController.createItem = async (req,res) => {
 itemController.getItems = async (req,res) => {
     try {
         const {page,name, specialty} = req.query;
-        const condition = name?{name:{$regex:name,$options:"i"}}:{}
+        const condition = name
+        ? {name:{$regex:name,$options:"i"}, isDeleted:false}
+        : {isDeleted: false};
         let query = Item.find(condition);
         let response = {status:"success"};
 
@@ -114,6 +116,34 @@ itemController.updateItem = async(req,res) => {
     } catch(error) {
         res.status(400).json({status:"fail", error:error.message});
     }
-}
+};
+
+itemController.deleteItem = async(req,res) => {
+    try{
+        const itemId = req.params.id;
+
+        const item = await Item.findByIdAndUpdate(
+            {_id:itemId}, 
+            {isDeleted:true});
+            // {status:"inactive",isDeleted:true}
+            
+
+        res.status(200).json({status:"success"});
+
+    } catch(error){
+        res.status(400).json({status:"fail", error:error.message});
+    }
+};
+
+itemController.getItemById = async(req,res) => {
+    try {
+        const itemId = req.params.id;
+        const item = await Item.findById(itemId);
+        if(!item) throw new Error("No item found!");
+        res.status(200).json({status:"success", data:item});
+    } catch(error) {
+        return res.status(400).json({staus:"fail", error:error.message});
+    }
+};
 
 module.exports = itemController;

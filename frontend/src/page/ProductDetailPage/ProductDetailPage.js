@@ -21,15 +21,17 @@ const ProductDetail = () => {
     //사이즈를 아직 선택안했다면 에러
     // 아직 로그인을 안한유저라면 로그인페이지로
     // 카트에 아이템 추가하기
+    if(setSize === "") throw new Error();
   };
   const selectSize = (value) => {
-    // 사이즈 추가하기
+    //to add size
+    dispatch(setSize(value));
   };
 
   useEffect(() => {
     dispatch(getProductDetail(id));
   }, [id, dispatch]);
-
+  console.log(selectedProduct);
   if (loading || !selectedProduct)
     return (
       <ColorRing
@@ -51,7 +53,7 @@ const ProductDetail = () => {
         <Col className="product-info-area" sm={6}>
           <div className="product-info">{selectedProduct.name}</div>
           <div className="product-info">
-            ₩ {currencyFormat(selectedProduct.price)}
+            $ {currencyFormat(selectedProduct.price)}
           </div>
           <div className="product-info">{selectedProduct.description}</div>
 
@@ -67,7 +69,7 @@ const ProductDetail = () => {
               id="dropdown-basic"
               align="start"
             >
-              {size === "" ? "사이즈 선택" : size.toUpperCase()}
+              {size === "" ? "Choose a size." : size.toUpperCase()}
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="size-drop-down">
