@@ -49,7 +49,7 @@ const Navbar = ({ user }) => {
               <FontAwesomeIcon className="search-icon" icon={faSearch} />
               <input
                 type="text"
-                placeholder="제품검색"
+                placeholder="Search"
                 onKeyPress={onCheckEnter}
               />
             </div>
@@ -140,7 +140,7 @@ const Navbar = ({ user }) => {
             <FontAwesomeIcon icon={faSearch} />
             <input
               type="text"
-              placeholder="제품검색"
+              placeholder="Search"
               onKeyPress={onCheckEnter}
             />
           </div>

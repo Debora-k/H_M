@@ -18,14 +18,24 @@ const ProductDetail = () => {
   const navigate = useNavigate();
 
   const addItemToCart = () => {
-    //사이즈를 아직 선택안했다면 에러
-    // 아직 로그인을 안한유저라면 로그인페이지로
-    // 카트에 아이템 추가하기
-    if(setSize === "") throw new Error();
+    // display an error message if there's no size selected
+    if(size === "") {
+      setSizeError(true);
+      return
+    }
+    // if a user hasn't logged in then returns to the login page
+    if(!user) navigate("/login");
+    
+    // add items in shopping cart
+    dispatch(addToCart({id,size}));
   };
+
   const selectSize = (value) => {
-    //to add size
-    dispatch(setSize(value));
+    // after size error and display error message 
+    // then it's okay to remove the message especially after a user just chose a size
+    if (sizeError) setSizeError(false);
+    //onSelect -> setSize
+    setSize(value);
   };
 
   useEffect(() => {
@@ -69,7 +79,7 @@ const ProductDetail = () => {
               id="dropdown-basic"
               align="start"
             >
-              {size === "" ? "Choose a size." : size.toUpperCase()}
+              {size === "" ? "Select size" : size.toUpperCase()}
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="size-drop-down">
@@ -88,7 +98,7 @@ const ProductDetail = () => {
             </Dropdown.Menu>
           </Dropdown>
           <div className="warning-message">
-            {sizeError && "Choose a size."}
+            {sizeError && "Select size"}
           </div>
           <Button variant="dark" className="add-button" onClick={addItemToCart}>
             Add
