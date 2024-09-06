@@ -13,8 +13,8 @@ const CartPage = () => {
 
   useEffect(() => {
     //bring cartList
-    dispatch(getCartList, totalPrice);
-  }, [cartList]);
+    dispatch(getCartList());
+  }, []);
 
   return (
     <Container>
@@ -32,7 +32,7 @@ const CartPage = () => {
           )}
         </Col>
         <Col xs={12} md={5}>
-          <OrderReceipt />
+          <OrderReceipt cartList={cartList} totalPrice={totalPrice}/>
         </Col>
       </Row>
     </Container>

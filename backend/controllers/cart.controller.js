@@ -58,13 +58,50 @@ cartController.getCartList = async(req,res) => {
 cartController.deleteCartItem = async(req,res) => {
     try {
         const {userId} = req;
-        const {itemId} = req.body;
-        const cartItem = await Cart.findById({_id:itemId});
-        res.status(200).json({status:"success"});
+        const {id} = req.params;
+        const cart = await Cart.findOne({userId});
+        cart.items= cart.items.filter((item)=> !item._id.equals(id));
+
+        await cart.save();
+        res.status(200).json({status:"success", cartItemQty:cart.items.length});
     } catch(error) {
-        res.status(400).json({status:"fail"});
+        return res.status(400).json({status:"fail", error:error.message});
     }
 };
 
+cartController.editCartItem = async(req,res) => {
+    try {
+        const {userId} = req;
+        const {id} = req.params;
+        const {qty} = req.body;
+        const cart = await Cart.findOne({userId}).populate({
+            path:"items",
+            populate: {
+                path:"itemId",
+                model:"Item",
+            },
+        });
+        if(!cart) throw new Erorr("There's no cart for this user");
+        const index = cart.items.findIndex((item) => item._id.equals(id));
+        if (index=== -1) throw new Error("Cannot find an item");
+        cart.items[index].qty = qty;
+        await cart.save();
+        res.status(200).json({status:"success", data:cart.items});
+
+    } catch(error) {
+        res.status(400).json({status:"fail", error:error.message});
+    }
+};
+
+cartController.getCartQty = async (req,res) => {
+    try {
+        const {userId} = req;
+        const cart = await Cart.findOne({userId:userId});
+        if(!cart) throw new Error("There's no shopping cart!");
+        res.status(200).json({status:"success", data:cart.items.length});
+    } catch(error) {
+        res.status(400).json({status:"fail", error:error.message});
+    }
+} 
 
 module.exports = cartController;

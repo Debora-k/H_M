@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import { currencyFormat } from "../../../utils/number";
 
-const OrderReceipt = () => {
+const OrderReceipt = ({cartList, totalPrice}) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -12,31 +12,33 @@ const OrderReceipt = () => {
     <div className="receipt-container">
       <h3 className="receipt-title">Order List</h3>
       <ul className="receipt-list">
-        <li>
+        {cartList.length>0 && cartList.map((item,index)=>(
+          <li key={index}>
           <div className="display-flex space-between">
-            <div>Shopping Bag</div>
+            <div>{item.itemId.name}</div>
 
-            <div>$ total price</div>
+            <div>$ {currencyFormat(item.itemId.price*item.qty)}</div>
           </div>
         </li>
+        ))}
       </ul>
       <div className="display-flex space-between receipt-title">
         <div>
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>$ total price</strong>
+          <strong>$ {totalPrice}</strong>
         </div>
       </div>
-      {/* {location.pathname.includes("/cart") && cartList.length > 0 && (
+      {location.pathname.includes("/cart") && cartList.length > 0 && (
         <Button
           variant="dark"
           className="payment-button"
           onClick={() => navigate("/payment")}
         >
-          결제 계속하기
+          Continue To Checkout
         </Button>
-      )} */}
+      )}
 
       <div>
           Prices and shipping costs are not confirmed until you've reached checkout.

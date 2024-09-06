@@ -16,11 +16,13 @@ const AppLayout = ({ children }) => {
   useEffect(() => {
     dispatch(loginWithToken());
   }, []);
+
   useEffect(() => {
     if (user) {
       dispatch(getCartQty());
     }
   }, [user]);
+  
   return (
     <div>
       <ToastMessage />
