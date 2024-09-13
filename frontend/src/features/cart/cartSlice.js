@@ -94,8 +94,8 @@ export const getCartQty = createAsyncThunk(
     try{
       const response = await api.get("/shoppingcart/qty");
       if(response.status!==200) throw new Error(response.error);
-      dispatch(getCartList());
-      return response.data.data;
+      // dispatch(getCartList());
+      return response.data.qty;
     } catch(error) {
       return rejectWithValue(error.error);
     }
@@ -146,10 +146,7 @@ const cartSlice = createSlice({
       .addCase(deleteCartItem.fulfilled,(state,action) => {
         state.loading=false;
         state.error="";
-        state.cartList=action.payload;
         state.cartItemCount=action.payload;
-        state.totalPrice=action.payload.reduce(
-          (total,item)=>total+item.itemId.price*item.qty, 0).toFixed(2);
       })
       .addCase(deleteCartItem.rejected,(state,action) => {
         state.loading=false;
@@ -162,7 +159,6 @@ const cartSlice = createSlice({
         state.loading=false;
         state.error="";
         state.cartItemQty=action.payload;
-        state.cartItemCount=action.payload;
         state.totalPrice=action.payload.reduce(
           (total,item)=>total+item.itemId.price*item.qty, 0).toFixed(2);
       })

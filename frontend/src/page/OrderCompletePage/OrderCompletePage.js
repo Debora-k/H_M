@@ -9,10 +9,10 @@ const OrderCompletePage = () => {
   if (orderNum === "")
     return (
       <Container className="confirmation-page">
-        <h1>주문 실패</h1>
+        <h1>Order failed</h1>
         <div>
-          메인페이지로 돌아가세요
-          <Link to={"/"}>메인페이지로 돌아가기</Link>
+          Please go back to the main page
+          <Link to={"/"}>To Main Page</Link>
         </div>
       </Container>
     );
@@ -24,12 +24,12 @@ const OrderCompletePage = () => {
         className="check-image"
         alt="greenCheck.png"
       />
-      <h2>예약이 완료됬습니다!</h2>
-      <div>예약번호:하드코딩</div>
+      <h2>Completed Your Order!</h2>
+      <div>Order Number:하드코딩</div>
       <div>
-        예약 확인은 내 예약 메뉴에서 확인해주세요
+        Now you can see your this order from your order history.
         <div className="text-align-center">
-          <Link to={"/account/purchase"}>내 예약 바로가기</Link>
+          <Link to={"/account/purchase"}>Go to my order page</Link>
         </div>
       </div>
     </Container>
