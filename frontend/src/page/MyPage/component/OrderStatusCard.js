@@ -16,19 +16,19 @@ const OrderStatusCard = ({ orderItem }) => {
         </Col>
         <Col xs={8} className="order-info">
           <div>
-            <strong>주문번호: {orderItem.orderNum}</strong>
+            <strong>Order Number: {orderItem.orderNum}</strong>
           </div>
 
           <div className="text-12">{orderItem.createdAt.slice(0, 10)}</div>
 
           <div>
-            {orderItem.items[0].productId.name}
-            {orderItem.items.length > 1 && `외 ${orderItem.items.length - 1}개`}
+            {orderItem.items[0].itemId.name}
+            {orderItem.items.length > 1 && ` ${orderItem.items.length - 1} orders`}
           </div>
-          <div>₩ {currencyFormat(orderItem.totalPrice)}</div>
+          <div>$ {currencyFormat(orderItem.totalPrice)}</div>
         </Col>
         <Col md={2} className="vertical-middle">
-          <div className="text-align-center text-12">주문상태</div>
+          <div className="text-align-center text-12">Order Status</div>
           <Badge bg={badgeBg[orderItem.status]}>{orderItem.status}</Badge>
         </Col>
       </Row>

@@ -16,11 +16,13 @@ const AdminOrderPage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
   const dispatch = useDispatch();
-  const { orderList, totalPageNum } = useSelector((state) => state.order);
+  const { orderList } = useSelector((state) => state.order);
+  const totalPageNum = useSelector((state) => state.order.totalPageNum);
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
     ordernum: query.get("ordernum") || "",
   });
+  const error = useSelector((state) => state.order.error);
   const [open, setOpen] = useState(false);
 
   const tableHeader = [
@@ -55,7 +57,7 @@ const AdminOrderPage = () => {
 
   const handlePageClick = ({ selected }) => {
     // if you click page 1, then it shows 0
-    setSearchQuery({ ...searchQuery, page: selected + 1 });
+    setSearchQuery({ ...searchQuery, page: selected + 1, name:searchQuery.orderNum});
   };
 
   const handleClose = () => {
@@ -69,8 +71,8 @@ const AdminOrderPage = () => {
           <SearchBox
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            placeholder="오더번호"
-            field="ordernum"
+            placeholder="Enter Order Number"
+            field="orderNum"
           />
         </div>
 

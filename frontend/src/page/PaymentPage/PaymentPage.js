@@ -32,8 +32,17 @@ const PaymentPage = () => {
   const {cartList, totalPrice} = useSelector(state => state.cart);
 
   useEffect(() => {
-    // 오더번호를 받으면 어디로 갈까?
-  }, [orderNum]);
+    // to blcok the situation that a user is making another order 
+    // that leads to the payment success page when calling useEffect
+    if(firstLoading) { // when a user is in shipping address page for a new order first time
+      setFirstLoading(false); // do not lead to payment/success page instantly
+    } else { 
+      if(orderNum !== "") {
+        // if a user gets order# then lead to the complete purchase page
+        navigate("/payment/success");
+      }
+    }
+  }, [orderNum]); // when a user has a different/new orderNum will call this useEffect again
 
   const handleSubmit = (event) => {
     event.preventDefault();

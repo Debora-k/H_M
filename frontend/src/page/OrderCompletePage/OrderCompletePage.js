@@ -25,7 +25,7 @@ const OrderCompletePage = () => {
         alt="greenCheck.png"
       />
       <h2>Completed Your Order!</h2>
-      <div>Order Number:하드코딩</div>
+      <div>Order Number: {orderNum}</div>
       <div>
         Now you can see your this order from your order history.
         <div className="text-align-center">

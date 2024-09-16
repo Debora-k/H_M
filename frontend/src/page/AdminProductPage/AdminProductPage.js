@@ -73,11 +73,10 @@ const AdminProductPage = () => {
   };
 
   const handlePageClick = ({ selected }) => {
-    //  쿼리에 페이지값 바꿔주기
     setSearchQuery({page:selected +1, name:searchQuery.name});
   };
 
-  // search box 에서 검색어를 읽어온다 
+  // getting the search values from search box
   //-> 'Enter' (onKeyPress) 
   //-> searchQuery 객체가 업데이트 됨{name: long-sleeve}
   //-> searchQuery 객체안에 아이템 기준으로 setting up (new) url and 호출
