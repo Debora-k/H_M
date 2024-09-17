@@ -65,9 +65,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page }) => {
   }, [showDialog]);
 
   const handleClose = () => {
-    //모든걸 초기화시키고;
+    //reset all
     setFormData(false);
-    // 다이얼로그 닫아주기
+    //close the dialog
     setShowDialog(false);
   };
 
@@ -75,7 +75,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // stock array: [['s','3']['m','6']]
-    //재고를 입력했는지 확인, 아니면 에러
     if(stock.length === 0) return setStockError(true);
 
     // 재고를 배열에서 객체로 바꿔주기

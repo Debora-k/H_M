@@ -3,7 +3,7 @@ import { Form, Modal, Button, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ORDER_STATUS } from "../../../constants/order.constants";
 import { currencyFormat } from "../../../utils/number";
-import { updateOrder } from "../../../features/order/orderSlice";
+import { updateOrder, getOrderList } from "../../../features/order/orderSlice";
 
 const OrderDetailDialog = ({ open, handleClose }) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
@@ -13,9 +13,11 @@ const OrderDetailDialog = ({ open, handleClose }) => {
   const handleStatusChange = (event) => {
     setOrderStatus(event.target.value);
   };
-  const submitStatus = () => {
+  const submitStatus = (event) => {
+    event.preventDefault();
     dispatch(updateOrder({ id: selectedOrder._id, status: orderStatus }));
     handleClose();
+    dispatch(getOrderList());
   };
 
   if (!selectedOrder) {
