@@ -28,7 +28,22 @@ export const loginWithEmail = createAsyncThunk(
 //   async (token, { rejectWithValue }) => {}
 // );
 
-export const logout = () => (dispatch) => {};
+export const logout = createAsyncThunk (
+  "user/logout", 
+  async(
+    {navigate}, 
+    {dispatch, rejectWithValue}
+   ) => {
+    try{
+      sessionStorage.removeItem("token");
+      navigate("/login");  
+    } catch(error) {
+      dispatch(showToastMessage({message:"Sorry, logout failed.", status:"error"}));
+      return rejectWithValue(error.error);
+
+    }
+});
+
 export const registerUser = createAsyncThunk(
   "user/registerUser", // the action's name
   async (
@@ -113,8 +128,20 @@ const userSlice = createSlice({
     // no pending for loginWithToken cause after that will be displayed items
     .addCase(loginWithToken.fulfilled, (state, action) => {
       state.user = action.payload.user;
-    });
+    })
     // Also, if there's no valid token then just display the login page (therefore, no rejected)
+    .addCase(logout.pending, (state,action) => {
+      state.loading=true;
+    })
+    .addCase(logout.fulfilled, (state,action) => {
+      state.loading=false;
+      state.error="";
+      state.user="";
+    })
+    .addCase(logout.rejected, (state,action) => {
+      state.loading=false;
+      state.error=action.payload;
+    })
   },
 });
 export const { clearErrors } = userSlice.actions;

@@ -27,9 +27,10 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async (googleData) => {
-    //구글 로그인 하기
-    // dispatch(loginWithEmail({googleData.credential}))
-  };
+    //login with Google
+    // dispatch(loginWithEmail({googleData}));
+    console.log("google", googleData);
+    };
 
   // if there's a user login, then redirect to the main page
   if (user) {
@@ -69,21 +70,27 @@ const Login = () => {
               Login
             </Button>
             <div>
-              Haven't you had an account? <Link to="/register">Here to sign up</Link>{" "}
+              Haven't you signed up? <Link to="/register">Sign up</Link>{" "}
             </div>
           </div>
 
           <div className="text-align-center mt-2">
-            <p>-외부 계정으로 로그인하기-</p>
+            <p>OR</p>
             <div className="display-center">
-              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+              {/* 1. Add Google login button
+                  2. For Oauth login, sign up for google api website (client key & secret key) 
+                  3. Implement login feature 
+                  4. Implement login feature in backend
+                     a. first users who sign up --> create a user's info --> a token
+                     b. already logged in --> after login, provide a token*/}
+              {/* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}> */}
                 <GoogleLogin
                   onSuccess={handleGoogleLogin}
                   onError={() => {
                     console.log("Login Failed");
                   }}
                 />
-              </GoogleOAuthProvider>
+              {/* </GoogleOAuthProvider> */}
             </div>
           </div>
         </Form>

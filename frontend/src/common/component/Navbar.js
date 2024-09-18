@@ -38,7 +38,7 @@ const Navbar = ({ user }) => {
     }
   };
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout({navigate}));
   };
   return (
     <div>
@@ -106,7 +106,7 @@ const Navbar = ({ user }) => {
                 })`}</span>
               )}
             </div>
-            <div
+            <div 
               onClick={() => navigate("/account/purchase")}
               className="nav-icon"
             >
