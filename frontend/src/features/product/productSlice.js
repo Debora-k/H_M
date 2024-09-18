@@ -8,8 +8,6 @@ export const getProductList = createAsyncThunk(
   async (query, { rejectWithValue }) => {
     try {
       const response = await api.get("/item", {params:{...query}});
-      if(response.status!==200) throw new Error(response.error); 
-
       console.log(response.data);
       return response.data;
     } catch(error) {
@@ -23,7 +21,6 @@ export const getProductDetail = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await api.get(`/item/${id}`);
-      if(response.status !== 200) throw new Error(response.error);
       return response.data;
     } catch(error) {
       return rejectWithValue(error.error);
@@ -36,7 +33,6 @@ export const createProduct = createAsyncThunk(
   async (formData, page, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.post("/item", formData);
-      if(response.status!==200) throw new Error(response.error);
       dispatch(showToastMessage({message:"Success to create an item!", status:"success"}));
       dispatch(getProductList({page}));
       return response.data.data;
@@ -52,7 +48,6 @@ export const deleteProduct = createAsyncThunk(
   async (id, page, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.delete(`/item/${id}`);
-      if(response.status!==200) throw new Error(response.error);
       dispatch(showToastMessage({message:"Deleted the item successfully.", status:"success"}));
       dispatch(getProductList({page}));
       return response.data.data;
@@ -67,7 +62,6 @@ export const editProduct = createAsyncThunk(
   async ({ id, page, ...formData }, { dispatch, rejectWithValue }) => {
     try{
       const response = await api.put(`/item/${id}`, formData);
-      if(response.status !==200) throw new Error (response.error);
       // after editing, updates right away by "dispatch"
       dispatch(getProductList({page}));
       return response.data.data;

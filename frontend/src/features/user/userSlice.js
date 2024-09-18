@@ -13,7 +13,6 @@ export const loginWithEmail = createAsyncThunk(
       // Login page
       // saving token in session storage
       sessionStorage.setItem("token", response.data.token);
-
       return response.data;
     } catch(error) {
       // failed
@@ -23,17 +22,22 @@ export const loginWithEmail = createAsyncThunk(
   }
 );
 
-// export const loginWithGoogle = createAsyncThunk(
-//   "user/loginWithGoogle",
-//   async (token, { rejectWithValue }) => {}
-// );
+export const loginWithGoogle = createAsyncThunk(
+  "user/loginWithGoogle",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/auth/google", {token});
+      sessionStorage.setItem("token", response.data.token);
+      return response.data.user;
+    } catch(error) {
+      rejectWithValue(error.error);
+    }
+  }
+);
 
 export const logout = createAsyncThunk (
   "user/logout", 
-  async(
-    {navigate}, 
-    {dispatch, rejectWithValue}
-   ) => {
+  async({navigate}, {dispatch, rejectWithValue}) => {
     try{
       sessionStorage.removeItem("token");
       navigate("/login");  
@@ -139,6 +143,18 @@ const userSlice = createSlice({
       state.user="";
     })
     .addCase(logout.rejected, (state,action) => {
+      state.loading=false;
+      state.error=action.payload;
+    })
+    .addCase(loginWithGoogle.pending, (state,action) => {
+      state.loading=true;
+    })
+    .addCase(loginWithGoogle.fulfilled, (state,action) => {
+      state.loading=false;
+      state.loginError=null;
+      state.user=action.payload;
+    })
+    .addCase(loginWithGoogle.rejected, (state,action) => {
       state.loading=false;
       state.error=action.payload;
     })

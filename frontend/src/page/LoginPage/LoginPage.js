@@ -28,7 +28,7 @@ const Login = () => {
 
   const handleGoogleLogin = async (googleData) => {
     //login with Google
-    // dispatch(loginWithEmail({googleData}));
+    dispatch(loginWithGoogle(googleData.credential));
     console.log("google", googleData);
     };
 
@@ -80,9 +80,7 @@ const Login = () => {
               {/* 1. Add Google login button
                   2. For Oauth login, sign up for google api website (client key & secret key) 
                   3. Implement login feature 
-                  4. Implement login feature in backend
-                     a. first users who sign up --> create a user's info --> a token
-                     b. already logged in --> after login, provide a token*/}
+                 */}
               {/* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}> */}
                 <GoogleLogin
                   onSuccess={handleGoogleLogin}
