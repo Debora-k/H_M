@@ -40,14 +40,6 @@ useEffect(() => {
     // to change to be readable in url by using toString
     const query = params.toString();
     navigate("?" + query);
-
-    // dispatch(
-    //   getProductList({
-    //     name,
-    //     specialty:true
-    //     // specialty is setting up difference between admin product page & landing page
-    //   })
-    // );
 }, [searchQuery]);
 
   return (
