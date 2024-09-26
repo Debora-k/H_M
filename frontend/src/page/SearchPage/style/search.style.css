@@ -1,5 +1,31 @@
-.search-home-hints{
-
+@keyframes slideAnimation {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
 }
 
-.button-lines-wrapper{}
+
+.search-home-hints {
+    width: 100%;
+    overflow: hidden;
+}
+
+.button-lines-wrapper {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+}
+
+.button-lines-wrapper[data-animate="true"] .looper__listInstance {
+    animation: slideAnimation linear infinite;
+}
+
+.looper__listInstance {
+    display: flex;
+    width: max-content;
+
+    animation: none;
+}

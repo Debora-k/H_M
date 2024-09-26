@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./components/ProductCard";
 import "./style/search.style.css";
 

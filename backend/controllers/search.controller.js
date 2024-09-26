@@ -2,9 +2,9 @@ const Item = require("../models/Item");
 
 
 const PAGE_SIZE = 1;
-const itemController = {}
+const searchController = {}
 
-itemController.popularItems = async (req,res) => {
+searchController.popularItems = async (req,res) => {
 
 };
 
