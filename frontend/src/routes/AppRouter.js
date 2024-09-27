@@ -11,7 +11,7 @@ import ProductAll from "../page/LandingPage/LandingPage";
 import ProductDetail from "../page/ProductDetailPage/ProductDetailPage";
 import RegisterPage from "../page/RegisterPage/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
-import SearchPage from "./page/SearchPage/SearchPage";
+import SearchPage from "../page/SearchPage/SearchPage";
 
 const AppRouter = () => {
   return (
